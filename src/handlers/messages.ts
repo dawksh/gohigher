@@ -1,5 +1,6 @@
 import TelegramBot, { Message } from "node-telegram-bot-api";
 import { supabase } from "../lib/supabase";
+import { generateRequestURL } from "../lib/reclaim";
 
 const handleMessage = async (msg: Message, bot: TelegramBot) => {
     const { chat, text } = msg;
@@ -12,7 +13,7 @@ const handleMessage = async (msg: Message, bot: TelegramBot) => {
             await joinSession(chat.id, bot, text)
             break
         case "/verify":
-            bot.sendMessage(chat.id, "Verify using Strava");
+            generateRequestURL("stravaWeek", bot, chat.id)
             break
     }
 }
